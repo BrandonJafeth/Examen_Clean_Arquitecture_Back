@@ -23,7 +23,7 @@ namespace Services.Handlers.Ideas
         {
             var ideas = await _ideaRepository.GetAllAsync();
 
-            // Mapear las entidades a DTOs (puedes usar AutoMapper para simplificar)
+     
             var ideaDtos = ideas.Select(idea => new IdeaDto
             {
                 Id = idea.Id,
