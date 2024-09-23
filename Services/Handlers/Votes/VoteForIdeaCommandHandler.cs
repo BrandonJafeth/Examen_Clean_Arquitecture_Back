@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Services.Handlers.Votes
 {
-    // Handler para gestionar la lógica del comando de votar por una idea.
+   
     public class VoteForIdeaCommandHandler : IRequestHandler<VoteForIdeaCommand, Unit>
     {
         private readonly IVoteRepository _voteRepository;
@@ -24,14 +24,14 @@ namespace Services.Handlers.Votes
 
         public async Task<Unit> Handle(VoteForIdeaCommand request, CancellationToken cancellationToken)
         {
-            // Verificar si la idea existe.
+        
             var idea = await _ideaRepository.GetByIdAsync(request.IdeaId);
             if (idea == null)
             {
                 throw new KeyNotFoundException($"La idea con ID {request.IdeaId} no existe.");
             }
 
-            // Crear un nuevo voto.
+          
             var vote = new Vote
             {
                 IdeaId = request.IdeaId,
@@ -39,10 +39,10 @@ namespace Services.Handlers.Votes
                 VotedDate = DateTime.UtcNow
             };
 
-            // Agregar el voto al repositorio.
+           
             await _voteRepository.AddAsync(vote);
 
-            // Incrementar el contador de votos en la idea.
+       
             idea.VotesCount += 1;
             await _ideaRepository.UpdateAsync(idea);
 
